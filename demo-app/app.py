@@ -7,8 +7,8 @@ participants build it themselves in the notebooks:
 
 Run this app with the workshop's OWN virtual environment, e.g. (from this folder):
 
-    ..\\..\\.venv\\Scripts\\python.exe -m streamlit run app.py   (Windows)
-    ../../.venv/bin/python -m streamlit run app.py                (macOS/Linux)
+    ..\\.venv\\Scripts\\python.exe -m streamlit run app.py   (Windows)
+    ../.venv/bin/python -m streamlit run app.py                (macOS/Linux)
 
 with .env configured + `az login`. Launching via a bare `streamlit run app.py`
 picks up whatever `streamlit` is first on PATH, which may be a different
@@ -52,11 +52,11 @@ def _preflight() -> None:
     if not missing:
         return
 
-    repo_root = HERE.parents[2]  # demo-app -> schneider-... -> immersion repo root
+    repo_root = HERE.parents[0]  # demo-app -> repo root (where .venv lives)
     if sys.platform.startswith("win"):
-        launch = r"..\..\.venv\Scripts\python.exe -m streamlit run app.py"
+        launch = r"..\.venv\Scripts\python.exe -m streamlit run app.py"
     else:
-        launch = "../../.venv/bin/python -m streamlit run app.py"
+        launch = "../.venv/bin/python -m streamlit run app.py"
 
     st.error(
         "**This app is running in the wrong Python environment.**\n\n"

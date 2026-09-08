@@ -88,26 +88,116 @@ schneider-technician-copilot/
 
 ## Getting started
 
-### 1. Provision Azure (facilitator / self-service)
-Follow [`docs/azure-setup.md`](docs/azure-setup.md): a **Foundry** resource +
-project, a **chat** model (`gpt-5.4`) and **embedding** model
-(`text-embedding-3-large`), an **Azure AI Search** service, an **Application
-Insights** resource, and the **RBAC** roles that make keyless auth work.
+Everything you need to stand up the environment and run the labs + demo app is
+below. Deeper reference docs: [`docs/azure-setup.md`](docs/azure-setup.md)
+(provisioning) and [`docs/setup.md`](docs/setup.md) (participant setup).
 
-### 2. Set up your machine (participants)
-Follow [`docs/setup.md`](docs/setup.md):
+### 0. What you need first
+
+- **Python 3.11 or 3.12**, **Azure CLI**, and **Git** installed
+  (`python --version`, `az version`, `git --version`). VS Code with the
+  **Python** + **Jupyter** extensions is recommended.
+- An **Azure subscription** and access to a **Foundry** project (provision one in
+  step 1, or get an endpoint from your facilitator).
+- **Keyless auth only** — you sign in with `az login`; there are **no API keys**
+  in code or `.env`.
+
+### 1. Clone the repo
+
 ```bash
-python -m venv .venv && .venv\Scripts\activate      # Windows
-pip install -r requirements.txt
-copy .env.sample .env                                # then fill in the values
-az login
+git clone https://github.com/kanhaiyasingh/schneider-technician-copilot-repo.git
+cd schneider-technician-copilot-repo
 ```
-Open `labs/00-setup-check.ipynb` → **Run All** → you should see a green checklist.
 
-### 3. (Facilitators) Show the demo app first
-The [`demo-app/`](demo-app/) is a branded Streamlit app that demonstrates the
-**finished** copilot across seven tabs — a "wow" moment before participants build
-it. See [`demo-app/README.md`](demo-app/README.md) for the run + demo script.
+### 2. Provision Azure  *(facilitator / self-service — skip if handed an endpoint)*
+
+Full walkthrough (portal **and** CLI): [`docs/azure-setup.md`](docs/azure-setup.md).
+You provision, keyless throughout:
+
+1. A **Microsoft Foundry** resource + **project**.
+2. Two **model deployments** — chat (`gpt-5.4`) and embeddings
+   (`text-embedding-3-large`). *(Advanced labs 07–08 also need a small
+   `gpt-4.1-mini`.)*
+3. An **Azure AI Search** service (Basic tier) — grounding for labs 04–06 —
+   connected as the project's default AI Search connection.
+4. An **Application Insights** resource attached to the project (observability,
+   lab 06).
+5. The **RBAC** roles that make keyless auth work (assign to every participant):
+   **Azure AI User** and **Cognitive Services OpenAI User** (on the Foundry
+   resource), **Search Index Data Contributor** and **Search Service
+   Contributor** (on the Search service). Advanced labs add **Cognitive Services
+   User** (lab 07) and **Cognitive Services Contributor** (lab 08).
+
+### 3. Create a virtual environment & install the libraries
+
+Create the `.venv` in the **repo root** (the labs and the demo app both expect it
+there).
+
+**Windows (PowerShell):**
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+```
+
+**macOS / Linux:**
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+Register it as a Jupyter kernel so the notebooks can select it:
+```bash
+python -m ipykernel install --user --name schneider-copilot \
+  --display-name "Python (Schneider Copilot)"
+```
+
+### 4. Configure `.env` and sign in
+
+```bash
+copy .env.sample .env      # Windows      (macOS/Linux: cp .env.sample .env)
+```
+Fill in at least `AI_FOUNDRY_PROJECT_ENDPOINT`, `AZURE_OPENAI_ENDPOINT`,
+`AZURE_AI_MODEL_DEPLOYMENT_NAME`, and `EMBEDDING_MODEL_DEPLOYMENT_NAME` (hints are
+in the file). Keep `.env` in the repo root — the labs auto-discover it. Then:
+
+```bash
+az login
+# multi-tenant? add:  az login --tenant <tenant-id>
+az account set --subscription "<your-subscription-id>"
+```
+
+### 5. Run the labs
+
+Open [`labs/00-setup-check.ipynb`](labs/00-setup-check.ipynb), select the
+**Python (Schneider Copilot)** kernel, and **Run All** — you should see a green
+checklist. Then work through **labs 01 → 09 in order** (later labs reuse earlier
+artifacts; e.g. lab 04 builds the Search index that labs 05–06 use). Stuck? The
+fully-executed [`solutions/`](solutions/) notebooks are the reference.
+
+### 6. Run the demo app  *(the "wow" before the labs — facilitators)*
+
+The [`demo-app/`](demo-app/) is a branded Streamlit app showing the **finished**
+copilot across all tabs. From the **repo root**, with the `.venv` created above:
+
+```bash
+pip install -r demo-app/requirements.txt      # streamlit + pandas, on top of the workshop libs
+az login                                        # if not already signed in
+```
+
+Launch it with the workshop venv's **own** interpreter (a bare `streamlit run`
+may pick a different environment):
+
+```powershell
+cd demo-app
+..\.venv\Scripts\python.exe -m streamlit run app.py      # Windows
+../.venv/bin/python -m streamlit run app.py              # macOS / Linux
+```
+
+It opens at **http://localhost:8501**. See
+[`demo-app/README.md`](demo-app/README.md) for the suggested demo script and
+first-run tips.
 
 ---
 

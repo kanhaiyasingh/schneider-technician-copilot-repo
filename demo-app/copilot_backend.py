@@ -1047,11 +1047,9 @@ _REDTEAM_KEY = {                # UI label -> scorecard key prefix
     "Self-Harm": "self_harm",
 }
 
-# Shown in the UI when the optional PyRIT dependency is missing.
-REDTEAM_INSTALL_CMD = (
-    r'uv pip install --python ..\..\.venv\Scripts\python.exe '
-    r'"azure-ai-evaluation[redteam]==1.17.0"'
-)
+# Shown in the UI when the optional PyRIT dependency is missing. Install it into
+# the same virtual environment that runs the app (see docs/setup.md).
+REDTEAM_INSTALL_CMD = 'pip install "azure-ai-evaluation[redteam]==1.17.0"'
 
 
 def _redteam_target_model() -> Callable[[str], str]:

@@ -47,8 +47,8 @@ pip install -r requirements.txt
 az login
 
 # launch via the workshop venv's interpreter (not a bare `streamlit`)
-..\..\.venv\Scripts\python.exe -m streamlit run app.py      # Windows
-../../.venv/bin/python -m streamlit run app.py              # macOS/Linux
+..\.venv\Scripts\python.exe -m streamlit run app.py      # Windows
+../.venv/bin/python -m streamlit run app.py              # macOS/Linux
 ```
 
 The app opens at **http://localhost:8501**. Keep the terminal running. If the app
@@ -152,7 +152,7 @@ identically — what the audience sees is exactly what they'll build.
 - **`ModuleNotFoundError: No module named 'agent_framework_foundry'`** (or
   `agent_framework`) — Streamlit is running in the wrong Python environment.
   Relaunch with the workshop venv's interpreter as shown in §2
-  (`..\..\.venv\Scripts\python.exe -m streamlit run app.py`), not a bare
+  (`..\.venv\Scripts\python.exe -m streamlit run app.py`), not a bare
   `streamlit run app.py`. The app now shows this instruction on screen too.
 - **Blank / error in a tab** — check the terminal running Streamlit for the Python
   error. Most failures are auth (`az login` expired) or the index not built yet.

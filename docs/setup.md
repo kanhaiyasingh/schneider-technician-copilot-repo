@@ -29,7 +29,7 @@ You also need:
 
 ```bash
 git clone <this-repo-url>
-cd foundry-agentic-ai-immersion/schneider-technician-copilot
+cd schneider-technician-copilot-repo
 ```
 
 ---
@@ -84,7 +84,7 @@ At minimum you must set:
 | `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Your chat deployment name (default `gpt-5.4`) |
 | `EMBEDDING_MODEL_DEPLOYMENT_NAME` | Your embedding deployment (default `text-embedding-3-large`) |
 
-Keep `.env` in **this** folder (`schneider-technician-copilot/`). The labs find
+Keep `.env` in the **repo root** (next to `.env.sample`). The labs find
 it automatically.
 
 ---
@@ -143,8 +143,8 @@ builds the Search index that Labs 05 and 06 depend on):
 ## Troubleshooting
 
 - **`AI_FOUNDRY_PROJECT_ENDPOINT is not set`** — your `.env` isn't being found or
-  the variable is blank. Confirm `.env` is in `schneider-technician-copilot/` and
-  the value is filled in.
+  the variable is blank. Confirm `.env` is in the repo root (next to
+  `.env.sample`) and the value is filled in.
 - **`403` / `AuthorizationFailure`** — usually RBAC not yet propagated or a
   resource firewall. Wait a few minutes, confirm `az login` identity, and see the
   troubleshooting notes in [`azure-setup.md`](./azure-setup.md).

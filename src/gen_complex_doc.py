@@ -10,7 +10,7 @@ codes E07/E12/E21/E33).
 
 Run::
 
-    ../../.venv/Scripts/python.exe src/gen_complex_doc.py
+    .venv/Scripts/python.exe src/gen_complex_doc.py
 
 Writes ``data/complex-docs/galaxy-vs-field-service-report.pdf``.
 """
