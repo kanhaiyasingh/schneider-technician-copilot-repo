@@ -1,0 +1,5 @@
+[server]
+# Serve files placed in ./static at the URL path app/static/<file>.
+# The Content Understanding tab uses this to preview the source PDF via a real
+# same-origin URL — browsers block data: PDFs inside iframes, but not served ones.
+enableStaticServing = true

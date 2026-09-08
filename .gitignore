@@ -1,0 +1,44 @@
+# =============================================================================
+# Schneider Field Service Copilot — workshop .gitignore
+# =============================================================================
+
+# --- Secrets / environment (NEVER commit) ------------------------------------
+.env
+.env.*
+!.env.sample
+*.key
+*.pem
+*.pfx
+secrets.json
+.streamlit/secrets.toml
+
+# --- Python virtual environments ---------------------------------------------
+.venv/
+venv/
+env/
+ENV/
+
+# --- Python caches / build ---------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# --- Jupyter ------------------------------------------------------------------
+.ipynb_checkpoints/
+
+# --- Red-teaming / evaluation run artifacts (Lab 09, demo-app) ---------------
+_redteam_output/
+.scan_*/
+*.orchestrator.log
+
+# --- OS / editor --------------------------------------------------------------
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

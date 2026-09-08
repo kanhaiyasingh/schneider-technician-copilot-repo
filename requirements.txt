@@ -1,0 +1,57 @@
+# =============================================================================
+# Schneider Field Service Technician Copilot — Workshop requirements
+# =============================================================================
+# Pinned to the exact versions this workshop was authored and validated against
+# (Python 3.12). Install into a clean virtual environment:
+#
+#   python -m venv .venv
+#   .venv\Scripts\activate            # Windows
+#   source .venv/bin/activate         # macOS / Linux
+#   pip install -r requirements.txt
+#
+# Foundry SDKs move fast and several are pre-release (b / rc). Keep these pins
+# exact — bumping them is likely to break the notebooks.
+# =============================================================================
+
+# --- Foundry project + agents (hosted-tool labs: 00, 01, 03, 04, 06) ---------
+azure-ai-projects==2.2.0
+azure-ai-agents==1.1.0
+openai==2.44.0
+
+# --- Microsoft Agent Framework (function-tool labs: 02, 05) -------------------
+agent-framework==1.9.0
+agent-framework-core==1.9.0
+agent-framework-foundry==1.8.2
+
+# --- Auth (all labs — Entra ID via `az login`, no keys) ----------------------
+azure-identity==1.25.3
+azure-core==1.41.0
+
+# --- Azure AI Search grounding (labs 04, 05, 06) -----------------------------
+azure-search-documents==11.7.0b2
+
+# --- Observability + evaluation (lab 06) -------------------------------------
+azure-monitor-opentelemetry==1.8.8
+opentelemetry-api==1.40.0
+opentelemetry-sdk==1.40.0
+
+# --- Trust & Safety: red teaming (lab 09) ------------------------------------
+# The AI Red Teaming Agent (PyRIT-backed). The [redteam] extra pulls PyRIT and
+# its scorers. Requires Python 3.10-3.13. Lab 08 (guardrails) needs no extra
+# package — it calls the Content Safety RAI surface over ARM REST via requests.
+azure-ai-evaluation[redteam]==1.17.0
+
+# --- Document extraction (lab 07 — Content Understanding) --------------------
+# Content Understanding is called over REST by src/cu.py (keyless, no extra SDK).
+# pypdf drives the "naive baseline" in the lab; reportlab regenerates the sample
+# complex PDF (authoring only — the PDF is already committed under data/).
+pypdf==6.14.2
+reportlab==5.0.0
+
+# --- Utilities ----------------------------------------------------------------
+python-dotenv==1.2.2
+requests==2.34.2
+
+# --- Notebook runtime (to open and run the labs) -----------------------------
+jupyter==1.1.1
+ipykernel==7.3.0

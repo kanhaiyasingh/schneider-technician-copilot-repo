@@ -1,0 +1,15 @@
+# =============================================================================
+# Schneider Field Service Copilot — DEMO APP requirements
+# =============================================================================
+# The Streamlit showcase app. Install ON TOP of the workshop requirements
+# (../requirements.txt) into the SAME virtual environment:
+#
+#   pip install -r ../requirements.txt
+#   pip install -r requirements.txt
+#
+# Then run:  streamlit run app.py
+# (Requires `az login` and a configured ../.env — see ../docs/setup.md.)
+# =============================================================================
+
+streamlit==1.51.0
+pandas==2.3.3

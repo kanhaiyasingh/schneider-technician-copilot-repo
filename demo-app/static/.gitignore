@@ -1,0 +1,3 @@
+# The app copies preview PDFs here at runtime — don't track them.
+*
+!.gitignore
